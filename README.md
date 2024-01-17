@@ -1,3 +1,5 @@
+## WASM experiments
+
 Compiling to binaries
 ```
 wasm-pack build --target web
