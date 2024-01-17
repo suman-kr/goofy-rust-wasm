@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>hello-wasm example</title>
+  </head>
+  <body>
+    <script type="module" defer>
+      import init, { find_the_number } from "./pkg/hello_wasm.js";
+      init();
+      window.search = function search() {
+        const value = document.getElementById("text").value;
+        find_the_number(value);
+      };
+    </script>
+    <label>Search a number</label>
+    <input placeholder="Enter a number" id="text" />
+    <button onclick="search()">Search</button>
+  </body>
+</html>
