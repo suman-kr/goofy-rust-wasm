@@ -6,15 +6,27 @@
   </head>
   <body>
     <script type="module" defer>
-      import init, { find_the_number } from "./pkg/hello_wasm.js";
-      init();
-      window.search = function search() {
+      import init, { generate_sequence } from "./pkg/hello_wasm.js";
+
+      window.generateUsingWASM = function generateUsingWASM() {
         const value = document.getElementById("text").value;
-        find_the_number(value);
+        init().then(() => {
+          const start = window.performance.now();
+          generate_sequence(Number(value));
+          const end = window.performance.now();
+          let performance = document.getElementById("performance");
+          performance.textContent = `Execution time from WASM: ${
+            end - start
+          }ms`;
+        });
       };
     </script>
-    <label>Search a number</label>
+    <script type="text/javascript" defer src="./index.js"></script>
+    <h1>Generate sequence</h1>
+    <label>Enter the length</label>
     <input placeholder="Enter a number" id="text" />
-    <button onclick="search()">Search</button>
+    <button onclick="generateUsingJS()">Generate using JS</button>
+    <button onclick="generateUsingWASM()">Generate using WASM</button>
+    <p id="performance"></p>
   </body>
 </html>
